@@ -3,17 +3,20 @@ const sw = require("stopword");
 
 const tokenizer = new natural.WordTokenizer();
 
-function processText(text){
+function preprocess(text){
 
  text = text.toLowerCase();
 
- // tokenização
  let tokens = tokenizer.tokenize(text);
 
- // remover stopwords
  tokens = sw.removeStopwords(tokens);
 
- return tokens;
+ const stems = tokens.map(t =>
+  natural.PorterStemmer.stem(t)
+ );
+
+ return stems;
+
 }
 
-module.exports = { processText };
+module.exports = { preprocess };

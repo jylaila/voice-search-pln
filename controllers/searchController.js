@@ -1,22 +1,41 @@
-const model = require("../models/productModel");
 const nlp = require("../services/plnService");
+const intentService = require("../services/intentService");
+const model = require("../models/productModel");
 
-function search(req,res){
+function processQuery(req,res){
 
  const text = req.query.q;
 
- const tokens = nlp.processText(text);
+ const tokens = nlp.preprocess(text);
 
- const term = tokens.join(" ");
+ const intent = intentService.detectIntent(tokens);
 
- const results = model.search(term);
+ let results = [];
+
+ if(intent === "search"){
+
+   const keyword = tokens.find(t =>
+    ["notebook","mouse","monitor","cadeir","teclad"]
+     .includes(t)
+   );
+
+   if(keyword){
+    results = model.search(keyword);
+   }
+
+ }
+
+ if(intent === "list"){
+   results = model.listAll();
+ }
 
  res.json({
   original:text,
-  tokens:tokens,
-  results:results
+  tokens,
+  intent,
+  results
  });
 
 }
 
-module.exports = { search };
+module.exports = { processQuery };

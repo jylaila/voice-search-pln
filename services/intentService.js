@@ -1,16 +1,17 @@
 function detectIntent(tokens){
 
- if(tokens.includes("list")){
-  return "list"
+ const listKeywords = ["list","listar","mostr","exib"];
+ const searchKeywords = ["busc","compr","procur"];
+
+ if(tokens.some(t => listKeywords.includes(t))){
+  return "list";
  }
 
- if(tokens.includes("busc") ||
-    tokens.includes("compr")){
-  return "search"
+ if(tokens.some(t => searchKeywords.includes(t))){
+  return "search";
  }
 
- return "unknown"
-
+ return "unknown";
 }
 
 module.exports = { detectIntent };

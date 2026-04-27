@@ -3,15 +3,22 @@ const products = [
  {id:2, name:"notebook lenovo"},
  {id:3, name:"mouse logitech"},
  {id:4, name:"teclado mecanico"},
- {id:5, name:"monitor gamer"}
+ {id:5, name:"monitor gamer"},
+ {id:6, name:"cadeira gamer"}
 ];
 
-function search(term){
+function searchByKeyword(keyword){
 
  return products.filter(p =>
-   p.name.includes(term)
+  p.name.includes(keyword)
  );
 
 }
 
-module.exports = { search };
+function listAll(){
+
+ return products;
+
+}
+
+module.exports = { searchByKeyword, listAll };
