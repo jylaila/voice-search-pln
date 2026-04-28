@@ -13,7 +13,6 @@ function processQuery(req,res){
  let results = [];
 
  if(intent === "search"){
-
    const keyword = tokens.find(t =>
     ["notebook","mouse","monitor","cadeir","teclad"]
      .includes(t)
@@ -22,7 +21,6 @@ function processQuery(req,res){
    if(keyword){
     results = model.search(keyword);
    }
-
  }
 
  if(intent === "list"){
@@ -35,7 +33,6 @@ function processQuery(req,res){
   intent,
   results
  });
-
 }
 
 module.exports = { processQuery };
